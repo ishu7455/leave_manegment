@@ -4,29 +4,29 @@ import 'react-toastify/dist/ReactToastify.css';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { format } from 'date-fns';
+import { useParams, useNavigate } from 'react-router-dom';
+
 
 const Leave = () => {
+  const { id } = useParams(); 
+  const navigate = useNavigate(); 
   const [type_id, setLeaveType] = useState('');
   const [toDate, setToDate] = useState(null);
+
   const [fromDate, setFromDate] = useState(null);
   const [types, setTypes] = useState([]);
   const [errors, setErrors] = useState([]);
+  const [editData, setEditData] = useState([]);
+
 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // Ensure both dates are selected
-    // if (!type_id || !toDate || !fromDate) {
-    //   toast.error('Please fill in all fields.');
-    //   return;
-    // }
-
-    // Format dates to 'YYYY-MM-DD' before sending to the server
     const leaveData = {
       to_date: toDate ? format(toDate, 'yyyy-MM-dd') : null,
       from_date: fromDate ? format(fromDate, 'yyyy-MM-dd') : null,
       type_id: type_id,
+      id: id
     };
 
     try {
@@ -40,14 +40,12 @@ const Leave = () => {
       });
 
       const result = await response.json();
+     // console.log(result.message);
       if (response.ok) {
-        toast.success('Leave applied successfully!');
-        setToDate(null);
-        setFromDate(null);
-        setLeaveType('');
+        sessionStorage.setItem('message', 'Leave updated successfully!');
+        navigate('/leave-list');
       } else {
         setErrors(result.errors);
-       // toast.error(result.message || 'Error applying leave!');
       }
     } catch (error) {
       console.error(error);
@@ -77,9 +75,36 @@ const Leave = () => {
     }
   };
 
+  const editLeave = async (id) => {
+    try {
+      const response = await fetch(`http://127.0.0.1:8000/api/user/leave-edit/${id}`, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
+          'Content-Type': 'application/json',
+        },
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        setEditData(data.leave); 
+        setLeaveType(data.leave.type_id);
+        setFromDate(data.leave.from_date);
+        setToDate(data.leave.to_date);
+      } else {
+        toast.error('Error fetching leave data.');
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error('Error fetching leave data.');
+    }
+  };
   useEffect(() => {
     fetchLeave();
-  }, []);
+    if (id) {
+      editLeave(id); 
+    }
+  }, [id]); 
 
   return (
     <section className="content">
@@ -106,7 +131,7 @@ const Leave = () => {
                             placeholderText="Select From Date"
                             isClearable
                           />
-                           {errors.to_date && <div className="text-danger">{errors.to_date}</div>}
+                           {errors.from_date && <div className="text-danger">{errors.from_date}</div>}
                         </div>
                       </div>
                     </div>
@@ -123,7 +148,7 @@ const Leave = () => {
                             placeholderText="Select To Date"
                             isClearable
                           />
-                          {errors.from_date && <div className="text-danger">{errors.from_date}</div>}
+                          {errors.to_date && <div className="text-danger">{errors.to_date}</div>}
                         </div>
                       </div>
                     </div>

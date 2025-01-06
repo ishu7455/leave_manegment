@@ -35,8 +35,7 @@ const Signup = () => {
     e.preventDefault();
     setErrors({});
     let formErrors = {};
-
-    // Basic validation
+    
     if (!name) formErrors.name = 'Name is required';
     if (!email) formErrors.email = 'Email is required';
     if (!password) formErrors.password = 'Password is required';
@@ -62,7 +61,7 @@ const Signup = () => {
     formData.append('aadhar_image', aadharImage);
 
     try {
-      const response = await fetch('http://127.0.0.1:8000/api/add-user', {
+      const response = await fetch('http://127.0.0.1:8000/api/admin/add-user', {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
@@ -83,7 +82,7 @@ const Signup = () => {
 
   const fetchRoles = async () => {
     try {
-      const response = await fetch('http://127.0.0.1:8000/api/roles', {
+      const response = await fetch('http://127.0.0.1:8000/api/admin/roles', {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('authToken')}`,

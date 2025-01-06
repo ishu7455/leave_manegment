@@ -1,8 +1,41 @@
 import React from "react";
 import { Link } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+
 
 
 const Header = () => {
+
+    const navigate = useNavigate();
+  const savedUser = JSON.parse(localStorage.getItem("user"));
+    const handleLogout = async () => {
+      try {
+        const token = localStorage.getItem("authToken");
+       // console.log(token);
+        const response = await fetch("http://127.0.0.1:8000/api/logout", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+           'user' : token
+          }),
+        });
+  
+        if (response.ok) {
+          localStorage.removeItem("token"); // Remove token from storage
+          localStorage.removeItem("user");
+          navigate("/login"); // Redirect to login page
+        } else {
+          const errorData = await response.json();
+          console.error("Logout failed:", errorData.message);
+        }
+      } catch (error) {
+        console.error("An error occurred during logout:", error);
+      }
+    };
+  
 return(
 <>
 
@@ -18,9 +51,14 @@ return(
       <li className="nav-item d-none d-sm-inline-block">
         <Link to="index3.html" className="nav-link">Home</Link>
       </li>
+      {savedUser ? (
       <li className="nav-item d-none d-sm-inline-block">
-        <Link to="#" className="nav-link">Contact</Link>
+      <button onClick={handleLogout} className="nav-link btn btn-link">
+        Logout
+      </button>
       </li>
+      ) : ([] )
+}
     </ul>
 
     <ul className="navbar-nav ml-auto">

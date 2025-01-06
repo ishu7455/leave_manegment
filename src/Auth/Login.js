@@ -91,7 +91,7 @@ const Login = () => {
               <div className="row">
                 <div className="col-8">
                   <div className="icheck-primary">
-                    <input type="checkbox" id="remember" />
+                    <input type="checkbox" id="remember" required/>
                     <label htmlFor="remember">Remember Me</label>
                   </div>
                 </div>

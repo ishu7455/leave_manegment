@@ -17,7 +17,9 @@
     "react-helmet": "^6.1.0",
     "react-medium-image-zoom": "^5.2.11",
     "react-modal-image": "^2.6.0",
-    "react-router-dom": "^6.28.0",
+    "react-paginate": "^8.2.0",
+    "react-router": "^7.1.1",
+    "react-router-dom": "^7.1.1",
     "react-scripts": "5.0.1",
     "react-toastify": "^10.0.6",
     "web-vitals": "^2.1.4"

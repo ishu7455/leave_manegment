@@ -16,7 +16,21 @@ const Sidebar = () => {
 
   const location = useLocation();
   
-  const isActive = (path) => location.pathname === path ? "active" : "";
+  const isActive = (path) => {
+    if (path === "/apply-leave") {
+      const regex = /^\/apply-leave(\/\d+)?$/;
+      return regex.test(location.pathname) ? "active" : "";
+    }
+  
+    if (path === "/edit") {
+      const regex = /^\/edit\/\d+$/;
+      return regex.test(location.pathname) ? "active" : "";
+    }
+  
+    // Fallback for static routes
+    return location.pathname === path ? "active" : "";
+  };
+  
 
 
   const updateImage = async (event) => {
@@ -78,7 +92,7 @@ const Sidebar = () => {
         <nav className="mt-2">
           <ul className="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <li className="nav-item menu-open">
-              <Link to="#" className={`nav-link ${isActive("/") || isActive("/signup") || isActive("/employee-list") ? "active" : ""}`}>
+              <Link to="#" className={`nav-link ${isActive("/") || isActive("/signup") || isActive("/employee-list") || isActive("/leave-list") || isActive("/edit") || isActive("/apply-leave") ? "active" : ""}`}>
                 <i className="nav-icon fas fa-tachometer-alt"></i>
                 <p>
                   Dashboard
@@ -99,9 +113,15 @@ const Sidebar = () => {
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link to="/employee-list" className={`nav-link ${isActive("/employee-list")}`}>
+                  <Link to="/employee-list" className={`nav-link ${isActive("/employee-list")} || ${isActive("/edit")}`}>
                     <i className="far fa-circle nav-icon"></i>
                     <p>Employee List</p>
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link to="/leave-list" className={`nav-link ${isActive("/leave-list")} ||  ${isActive("/apply-leave")}`}>
+                    <i className="far fa-circle nav-icon"></i>
+                    <p>Leave List</p>
                   </Link>
                 </li>
               </ul>
