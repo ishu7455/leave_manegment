@@ -1,6 +1,19 @@
 import React from "react";
 import { Link } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
+// Importing external CSS files in React
+
+import "../plugins/fontawesome-free/css/all.min.css";
+import "../plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css";
+import "../plugins/icheck-bootstrap/icheck-bootstrap.min.css";
+import "../plugins/jqvmap/jqvmap.min.css";
+import "../dist/css/adminlte.min.css";
+import "../plugins/overlayScrollbars/css/OverlayScrollbars.min.css";
+import "../plugins/summernote/summernote-bs4.min.css";
+import "../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css";
+import "../plugins/datatables-responsive/css/responsive.bootstrap4.min.css";
+import "../plugins/datatables-buttons/css/buttons.bootstrap4.min.css";
+
 
 
 

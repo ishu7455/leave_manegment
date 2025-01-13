@@ -106,6 +106,8 @@ const Sidebar = () => {
                     <p>Dashboard</p>
                   </Link>
                 </li>
+               {[1,2,3].includes(user?.role_id) && ( 
+                <>
                 <li className="nav-item">
                   <Link to="/signup" className={`nav-link ${isActive("/signup")}`}>
                     <i className="far fa-circle nav-icon"></i>
@@ -118,6 +120,8 @@ const Sidebar = () => {
                     <p>Employee List</p>
                   </Link>
                 </li>
+                </>
+              )}
                 <li className="nav-item">
                   <Link to="/leave-list" className={`nav-link ${isActive("/leave-list")} ||  ${isActive("/apply-leave")}`}>
                     <i className="far fa-circle nav-icon"></i>

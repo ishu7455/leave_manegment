@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ReactPaginate from "react-paginate"; // For Pagination
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSquareXmark , faSquareCheck } from '@fortawesome/free-solid-svg-icons';
 
 const LeaveList = () => {
   
@@ -77,6 +78,37 @@ const LeaveList = () => {
     }
   };
 
+  const StatusUpdate = async (leaveId , status) => {
+   // alert('id' + id , 'status' + status)
+    try {
+      const response = await fetch(`http://127.0.0.1:8000/api/admin/status-update`, {
+        method: "Post",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: JSON.stringify({
+          leave_id: leaveId,
+          status: status,
+        }),
+      });
+
+      const result = await response.json();
+      console.log(result);
+
+      if (response.ok) {
+        toast.success(result.message || "Status Update successfully.");
+        fetchLeave();
+      } else {
+        toast.error(result.message || "Failed to delete leave.");
+      }
+    } catch (error) {
+      console.log(error);
+     // toast.error("An error occurred. Please try again later.");
+    }
+  }
+
   const handlePageChange = (selectedPage) => {
     setCurrentPage(selectedPage.selected); 
   };
@@ -144,6 +176,9 @@ const filteredLeaves = leave.filter(
                         <th>Delete</th>
                         </>
                          )}
+                        {[1,2,3].includes(userData?.role_id) && (
+                         <th>Action</th>
+                        )}
                       </tr>
                     </thead>
                     <tbody>
@@ -155,6 +190,7 @@ const filteredLeaves = leave.filter(
                           <td>{leaveItem.type.name}</td>
                           <td>{leaveItem.from_date}</td>
                           <td>{leaveItem.to_date}</td>
+                          <td>{leaveItem.status}</td>
                           {[4, 5].includes(userData?.role_id) && (
                           <>
                           <td>
@@ -171,7 +207,30 @@ const filteredLeaves = leave.filter(
                             </button>
                           </td>
                           </>
-              )}
+                         )}
+                         {[1, 2 , 3].includes(userData?.role_id) && (
+                          <>
+                          <td>
+                            {leaveItem.status != 0 && (
+                            
+                            <button
+                              onClick={() => StatusUpdate(leaveItem.id , '0')}
+                              style={{ border: "none", background: "none", color: "#e80909" }}
+                            >
+                            <FontAwesomeIcon icon={faSquareXmark} />
+                            </button>
+                            )}
+                           {leaveItem.status != '1' && (
+                            <button
+                              onClick={() => StatusUpdate(leaveItem.id , '1')}
+                              style={{ border: "none", background: "none", color: "rgb(29 104 67)"  }}
+                            >
+                              <FontAwesomeIcon icon={faSquareCheck} />
+                            </button>
+                          )}
+                          </td>
+                          </>
+                         )}
                         </tr>
                       ))}
                     </tbody>
