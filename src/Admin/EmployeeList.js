@@ -108,28 +108,34 @@ const EmployeeList = () => {
                             <td>{emp.name}</td>
                             <td>{emp.email}</td>
                             <td>
+                            <div style={{ width: "100px", height: "100px", overflow: "hidden" }}>
                               <ReactModalImage
                                 small={`http://127.0.0.1:8000/storage/${emp.aadhar_image}`}
                                 large={`http://127.0.0.1:8000/storage/${emp.aadhar_image}`}
                                 alt="Aadhar"
-                                className="modal-image"
+                               // className="modal-image"
                               />
+                            </div>
                             </td>
                             <td>
+                            <div style={{ width: "100px", height: "100px", overflow: "hidden" }}>
                               <ReactModalImage
                                 small={`http://127.0.0.1:8000/storage/${emp.passbook_image}`}
                                 large={`http://127.0.0.1:8000/storage/${emp.passbook_image}`}
                                 alt="Passbook"
-                                className="modal-image"
+                               // className="modal-image"
                               />
+                            </div>
                             </td>
                             <td>
+                            <div style={{ width: "100px", height: "100px", overflow: "hidden" }}>
                               <ReactModalImage
                                 small={`http://127.0.0.1:8000/storage/${emp.pan_image}`}
                                 large={`http://127.0.0.1:8000/storage/${emp.pan_image}`}
                                 alt="Pan"
-                                className="modal-image"
+                              //  className="modal-image"
                               />
+                            </div>
                             </td>
                             <td>
                               <Link to={`/edit/${emp.id}`}>
