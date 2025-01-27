@@ -7,7 +7,10 @@ import EmployeeList from "./Admin/EmployeeList";
 import Edit from "./Admin/Edit";
 import Leave from "./Admin/Leave";
 import LeaveList from "./Admin/LeaveList";
+import Profile from "./Auth/Profile";
 import { useEffect , useState } from "react";
+import Chat from "./Chat";
+import ChatList from "./ChatList";
 
 
 
@@ -31,6 +34,12 @@ function AppRoutes() {
     { path: "/employee-list", element: <EmployeeList />, title: "Employee List" },
     { path: "/edit/:id", element: <Edit />, title: "Edit Employee" },
     { path: "/apply-leave/:id?", element: <Leave />, title: "Apply Leave" },
+    { path: "/profile", element: <Profile />, title: "Profile" },
+    { path: "/profile", element: <Profile />, title: "Profile" },
+    {path: "/chat/:id", element: <Chat/>, title: "Chat"},
+    {path:"/chat-list", element: <ChatList/>,  title: "Chat" },
+    
+
     {
       path: "/leave-list",
       element: <LeaveList />,
@@ -46,7 +55,7 @@ function AppRoutes() {
   const wrappedRoutes = routes.map((route) => ({
     path: route.path,
     element: route.noLayout 
-      ? route.element // Skip Layout for routes with `noLayout: true`
+      ? route.element 
       : (
           <Layout
             child={route.element}

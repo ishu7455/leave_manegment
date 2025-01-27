@@ -92,7 +92,7 @@ const Sidebar = () => {
         <nav className="mt-2">
           <ul className="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <li className="nav-item menu-open">
-              <Link to="#" className={`nav-link ${isActive("/") || isActive("/signup") || isActive("/employee-list") || isActive("/leave-list") || isActive("/edit") || isActive("/apply-leave") ? "active" : ""}`}>
+              <Link to="#" className={`nav-link ${isActive("/") || isActive("/signup") || isActive("/employee-list") || isActive("/leave-list") || isActive("/edit") || isActive("/apply-leave") || isActive("/profile") ? "active" : ""}`}>
                 <i className="nav-icon fas fa-tachometer-alt"></i>
                 <p>
                   Dashboard
@@ -126,6 +126,12 @@ const Sidebar = () => {
                   <Link to="/leave-list" className={`nav-link ${isActive("/leave-list")} ||  ${isActive("/apply-leave")}`}>
                     <i className="far fa-circle nav-icon"></i>
                     <p>Leave List</p>
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link to="/profile" className={`nav-link ${isActive("/profile")}`}>
+                    <i className="far fa-circle nav-icon"></i>
+                    <p>Profile</p>
                   </Link>
                 </li>
               </ul>

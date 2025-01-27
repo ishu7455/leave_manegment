@@ -79,7 +79,6 @@ const LeaveList = () => {
   };
 
   const StatusUpdate = async (leaveId , status) => {
-   // alert('id' + id , 'status' + status)
     try {
       const response = await fetch(`http://127.0.0.1:8000/api/admin/status-update`, {
         method: "Post",
@@ -190,7 +189,6 @@ const filteredLeaves = leave.filter(
                           <td>{leaveItem.type.name}</td>
                           <td>{leaveItem.from_date}</td>
                           <td>{leaveItem.to_date}</td>
-                          <td>{leaveItem.status}</td>
                           {[4, 5].includes(userData?.role_id) && (
                           <>
                           <td>
